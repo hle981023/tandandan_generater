@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 
+import { ImageCopyStudio } from "@/components/generator/image-copy-studio";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -49,7 +50,7 @@ export function AppShell() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="image-copy">
-          <StudioPlaceholder title="인스타그램 무드 만들기" />
+          <ImageCopyStudio />
         </TabsContent>
         <TabsContent value="rewrite">
           <StudioPlaceholder title="탄단단 언어로 바꾸기" />

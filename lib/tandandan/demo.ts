@@ -7,9 +7,9 @@ import type {
 } from "@/lib/tandandan/types";
 
 const moodImages = {
-  product: "/demo/product.webp",
-  ingredient: "/demo/ingredient.webp",
-  culture: "/demo/culture.webp",
+  product: "/demo/product.jpg",
+  ingredient: "/demo/ingredient.jpg",
+  culture: "/demo/culture.jpg",
 } as const;
 
 function joinFacts(productFacts: string, nutritionFacts: string): string {
