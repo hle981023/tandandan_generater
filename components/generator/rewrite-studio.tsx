@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Copy, LoaderCircle, WandSparkles } from "lucide-react";
 
 import { BrandCheckList } from "@/components/generator/brand-check-list";
@@ -27,6 +27,16 @@ export function RewriteStudio() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<number>();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    function receiveResult(event: Event) {
+      const detail = (event as CustomEvent<{ brief: RewriteBrief; result: RewriteResult }>).detail;
+      setBrief(detail.brief);
+      setResult(detail.result);
+    }
+    window.addEventListener("tandandan:rewrite-result", receiveResult);
+    return () => window.removeEventListener("tandandan:rewrite-result", receiveResult);
+  }, []);
 
   function update<Key extends keyof RewriteBrief>(key: Key, value: RewriteBrief[Key]) {
     setBrief((current) => ({ ...current, [key]: value }));

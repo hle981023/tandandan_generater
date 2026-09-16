@@ -1,15 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { ImageCopyStudio } from "@/components/generator/image-copy-studio";
 import { RewriteStudio } from "@/components/generator/rewrite-studio";
+import { WebMcpTools } from "@/components/generator/webmcp-tools";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function AppShell() {
+  const [activeTab, setActiveTab] = useState("image-copy");
+
+  useEffect(() => {
+    const showImage = () => setActiveTab("image-copy");
+    const showRewrite = () => setActiveTab("rewrite");
+    window.addEventListener("tandandan:image-result", showImage);
+    window.addEventListener("tandandan:rewrite-result", showRewrite);
+    return () => {
+      window.removeEventListener("tandandan:image-result", showImage);
+      window.removeEventListener("tandandan:rewrite-result", showRewrite);
+    };
+  }, []);
+
   return (
     <main className="min-h-screen bg-[var(--tdd-cream)] text-black">
+      <WebMcpTools />
       <header className="brand-header">
         <div className="brand-lockup">
           <Image
@@ -25,7 +41,7 @@ export function AppShell() {
         <Badge className="demo-badge">DEMO MODE</Badge>
       </header>
 
-      <Tabs className="studio-shell" defaultValue="image-copy">
+      <Tabs className="studio-shell" onValueChange={setActiveTab} value={activeTab}>
         <TabsList className="studio-tabs" variant="line">
           <TabsTrigger className="studio-tab" value="image-copy">
             이미지 &amp; 글 생성기
@@ -34,10 +50,10 @@ export function AppShell() {
             언어 교정기
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="image-copy">
+        <TabsContent className="data-[state=inactive]:hidden" forceMount value="image-copy">
           <ImageCopyStudio />
         </TabsContent>
-        <TabsContent value="rewrite">
+        <TabsContent className="data-[state=inactive]:hidden" forceMount value="rewrite">
           <RewriteStudio />
         </TabsContent>
       </Tabs>

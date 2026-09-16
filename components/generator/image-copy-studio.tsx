@@ -41,6 +41,17 @@ export function ImageCopyStudio() {
     if (productImage?.startsWith("blob:")) URL.revokeObjectURL(productImage);
   }, [productImage]);
 
+  useEffect(() => {
+    function receiveResult(event: Event) {
+      const detail = (event as CustomEvent<{ brief: ImageBrief; result: ImageCopyResult }>).detail;
+      setBrief(detail.brief);
+      setResult(detail.result);
+      setSelectedHeadline(0);
+    }
+    window.addEventListener("tandandan:image-result", receiveResult);
+    return () => window.removeEventListener("tandandan:image-result", receiveResult);
+  }, []);
+
   const canSubmit = useMemo(
     () => Object.keys(validateImageBrief(brief)).length === 0,
     [brief],

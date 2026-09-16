@@ -45,4 +45,15 @@ describe("demo generation", () => {
 
     expect(new Set(result.options.map((option) => option.text)).size).toBe(3);
   });
+
+  it("does not carry discouraged brand words into rewrites", () => {
+    const result = rewriteDemoCopy({
+      original: "완벽한 영양 설계로 당신의 기준을 완성하세요.",
+      placement: "on-image",
+      productFacts: "단백질 12g",
+      occasion: "오후의 한 끼",
+    });
+
+    expect(result.options.flatMap((option) => option.warnings)).toEqual([]);
+  });
 });

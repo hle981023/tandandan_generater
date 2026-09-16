@@ -49,10 +49,9 @@ export function generateDemoImageCopy(brief: ImageBrief): ImageCopyResult {
 export function rewriteDemoCopy(brief: RewriteBrief): RewriteResult {
   const occasion = brief.occasion.trim() || "오늘의 한 끼";
   const fact = brief.productFacts.trim() || "필요한 만큼의 맛과 영양";
-  const sourceHint = brief.original.trim().replace(/[.!?]+$/, "");
   const texts = [
     `${occasion}, ${fact}으로 가볍고 탄탄하게 채워요.`,
-    `${sourceHint}보다 먼저 떠오르는 건 맛있는 한 끼. ${occasion}에도 내 리듬대로 이어가요.`,
+    `${occasion}에 먼저 떠오르는 건 맛있는 한 끼. 오늘도 내 리듬대로 이어가요.`,
     `맛있게 채우고, 즐겁게 이어가는 루틴. ${fact}을 ${occasion}에 만나보세요.`,
   ];
   const reasons = [
