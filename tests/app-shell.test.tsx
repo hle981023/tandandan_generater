@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import Home from "@/app/page";
@@ -23,6 +23,19 @@ describe("Tandandan Creative Lab shell", () => {
     expect(screen.getByLabelText("게시 목적")).toBeVisible();
     expect(
       screen.getByRole("button", { name: "무드 & 카피 만들기" }),
+    ).toBeVisible();
+  });
+
+  it("opens the Tandandan language rewriter", () => {
+    render(<Home />);
+    const rewriteTab = screen.getByRole("tab", { name: "언어 교정기" });
+    fireEvent.mouseDown(rewriteTab, { button: 0, ctrlKey: false });
+    fireEvent.click(rewriteTab);
+
+    expect(screen.getByLabelText("바꾸고 싶은 문장")).toBeVisible();
+    expect(screen.getByLabelText("사용 위치")).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: "탄단단 언어로 바꾸기" }),
     ).toBeVisible();
   });
 });

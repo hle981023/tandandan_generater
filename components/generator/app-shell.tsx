@@ -3,24 +3,9 @@
 import Image from "next/image";
 
 import { ImageCopyStudio } from "@/components/generator/image-copy-studio";
+import { RewriteStudio } from "@/components/generator/rewrite-studio";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-function StudioPlaceholder({ title }: { title: string }) {
-  return (
-    <section className="studio-grid" aria-label={title}>
-      <div className="studio-panel">
-        <p className="eyebrow">BRIEF</p>
-        <h2>{title}</h2>
-        <p className="studio-muted">입력 영역을 준비하고 있어요.</p>
-      </div>
-      <div className="studio-panel studio-preview">
-        <p className="eyebrow">PREVIEW</p>
-        <div className="preview-placeholder">탄단단 무드가 여기에 채워집니다.</div>
-      </div>
-    </section>
-  );
-}
 
 export function AppShell() {
   return (
@@ -53,7 +38,7 @@ export function AppShell() {
           <ImageCopyStudio />
         </TabsContent>
         <TabsContent value="rewrite">
-          <StudioPlaceholder title="탄단단 언어로 바꾸기" />
+          <RewriteStudio />
         </TabsContent>
       </Tabs>
     </main>
