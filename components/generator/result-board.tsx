@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Copy, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Check, Copy, Download, LoaderCircle, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { downloadBlob, getExportFilename, renderInstagramAsset } from "@/lib/tandandan/export";
 import type { ImageBrief, ImageCopyResult } from "@/lib/tandandan/types";
 
 interface ResultBoardProps {
@@ -26,6 +28,24 @@ export function ResultBoard({
   onSelectHeadline,
 }: ResultBoardProps) {
   const headline = result.headlineOptions[selectedHeadline];
+  const [isExporting, setIsExporting] = useState(false);
+
+  async function exportImage() {
+    setIsExporting(true);
+    try {
+      const blob = await renderInstagramAsset({
+        backgroundSrc: result.image.src,
+        headline,
+        objective: brief.objective,
+        productImage,
+        productName: brief.productName,
+        ratio: brief.ratio,
+      });
+      downloadBlob(blob, getExportFilename(brief.productName, brief.ratio));
+    } finally {
+      setIsExporting(false);
+    }
+  }
 
   return (
     <section className="result-board" aria-label="생성 결과">
@@ -109,6 +129,10 @@ export function ResultBoard({
             {result.ctaOptions[0]} ↗
           </button>
         </article>
+        <Button className="download-button" disabled={isExporting} onClick={exportImage} size="lg" type="button" variant="secondary">
+          {isExporting ? <LoaderCircle className="spin" /> : <Download />}
+          {brief.ratio === "4:5" ? "1080 × 1350" : "1080 × 1920"} PNG 저장
+        </Button>
       </div>
     </section>
   );

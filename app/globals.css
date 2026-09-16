@@ -278,6 +278,8 @@ button, input, textarea, select { font: inherit; }
 .caption-card-head { align-items: center; display: flex; font-family: "elza-narrow", sans-serif; font-size: .72rem; font-weight: 800; justify-content: space-between; letter-spacing: .08em; }
 .caption-card p { font-size: .84rem; line-height: 1.58; margin: 8px 0 14px; }
 .cta-pill { background: var(--tdd-orange); border: 0; border-radius: 999px; color: white; cursor: pointer; font-size: .72rem; font-weight: 800; padding: 8px 12px; }
+.download-button { background: var(--tdd-lime); border: 1.2px solid #0b0b0b; border-radius: 12px; color: #0b0b0b; font-weight: 850; min-height: 48px; width: 100%; }
+.download-button:hover { background: #fff; }
 
 .rewrite-layout { display: grid; gap: 18px; grid-template-columns: minmax(340px, .72fr) minmax(500px, 1.28fr); padding-top: 24px; }
 .rewrite-intro h1 { max-width: none; }
